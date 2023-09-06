@@ -16,7 +16,6 @@ public class StockBuyANdSellBasic {
 			for (int j = i + 1; j <= end; j++) {
 				if (price[j] > price[i]) {
 					profit = price[j] - price[i] + maxProfit(price, start, i - 1) + maxProfit(price, j + 1, end);
-
 					totalProfit = Math.max(totalProfit, profit);
 				}
 			}

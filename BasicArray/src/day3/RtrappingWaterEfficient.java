@@ -2,42 +2,37 @@ package day3;
 
 public class RtrappingWaterEfficient {
 
-	public static void main(String args[]) {
-		int[] arr = { 7, 0, 1, 2, 5 };
-		int tappedWater = getWater(arr);
-		System.out.println("Tapped water collected : " + tappedWater);
+	public static void main(String[] args) {
+		int[] arr = { 3, 0, 1, 2, 5 };
+		int trappedWater = getWater(arr);
+		System.out.println("Trapped water collected: " + trappedWater);
 	}
 
 	private static int getWater(int[] arr) {
-		int n=arr.length,waterTapped=0;
-		int[] lmax = new int[n];
-		int[] rmax = new int[n];
-		lmax[0]=arr[0];
-		rmax[n-1]=arr[n-1];
-		for(int i=1;i<n;i++)
-		{
-			lmax[i]=Math.max(lmax[i-1], arr[i]);
+		int n = arr.length;
+		if (n <= 2) {
+			return 0; // Not enough elements to trap water
 		}
-		for(int j=n-2;j>=0;j--)
-		{
-			rmax[j]=Math.max(rmax[j+1],arr[j]);
-		}
-		for(int i=1;i<n-1;i++)
-		{
-			waterTapped+=(Math.min(rmax[i], lmax[i])-arr[i]);
-		}
-		return waterTapped;
-	}
 
-//	private static int getWater(int[] arr) {
-//		int n=arr.length,waterTapped=0,lMax=arr[0];
-//		
-//		for(int i=1;i<n;i++) 
-//		{
-//		waterTapped +=	Math.min(lMax, arr[i]);
-//		}
-//		return waterTapped;
-//	}
-	
-	
+		int left = 0; // Left pointer
+		int right = n - 1; // Right pointer
+		int leftMax = 0; // Maximum height from the left
+		int rightMax = 0; // Maximum height from the right
+		int trappedWater = 0;
+
+		while (left < right) {
+			leftMax = Math.max(leftMax, arr[left]);
+			rightMax = Math.max(rightMax, arr[right]);
+
+			if (leftMax <= rightMax) {
+				trappedWater += leftMax - arr[left];
+				left++;
+			} else {
+				trappedWater += rightMax - arr[right];
+				right--;
+			}
+		}
+
+		return trappedWater;
+	}
 }
