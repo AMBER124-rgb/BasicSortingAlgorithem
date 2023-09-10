@@ -22,7 +22,7 @@ public class PatternMatchingNaive {
 			if (j == 0)
 				i++;
 			else
-				i = i + j;
+				i = i + j;	
 		}
 
 	}
